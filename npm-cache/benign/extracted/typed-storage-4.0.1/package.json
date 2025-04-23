@@ -1,0 +1,67 @@
+{
+  "name": "@jill64/typed-storage",
+  "version": "4.0.1",
+  "type": "module",
+  "description": "🗃️ Type-Safe Web Storage API Wrapper",
+  "main": "dist/index.js",
+  "license": "MIT",
+  "author": {
+    "name": "jill64",
+    "email": "contact@jill64.dev",
+    "url": "https://github.com/jill64",
+    "image": "https://avatars.githubusercontent.com/u/143883742?v=4"
+  },
+  "bugs": "https://github.com/jill64/typed-storage/issues",
+  "homepage": "https://github.com/jill64/typed-storage#readme",
+  "files": [
+    "dist",
+    "!**/*.test.*"
+  ],
+  "exports": {
+    "./serde": {
+      "types": "./dist/serde/index.d.ts",
+      "default": "./dist/serde/index.js"
+    },
+    "./types": {
+      "types": "./dist/types/index.d.ts",
+      "default": "./dist/types/index.js"
+    },
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "keywords": [
+    "library",
+    "localstorage",
+    "sessionstorage",
+    "type-safe",
+    "utility"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jill64/typed-storage.git",
+    "image": "https://opengraph.githubassets.com/a69ef3fb561fd7de8117a77acd7a6c624d8fde20647475280fd22e6cac558cad/jill64/typed-storage"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsc && bunx publint",
+    "test": "bun test",
+    "prepack": "bun run build",
+    "format": "bunx prettier -w .",
+    "lint": "eslint ."
+  },
+  "prettier": "@jill64/prettier-config",
+  "devDependencies": {
+    "@happy-dom/global-registrator": "17.4.4",
+    "@jill64/eslint-config-ts": "2.0.17",
+    "@jill64/prettier-config": "1.0.0",
+    "typescanner": "0.5.3",
+    "typescript": "5.8.2"
+  },
+  "dependencies": {
+    "ts-serde": "1.0.9"
+  }
+}

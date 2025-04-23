@@ -1,49 +1,70 @@
 import os
-import subprocess
 import json
+import pandas as pd
 from modules.shell_detector import detect_shell_commands
-from modules.obfuscation_detector import detect_obfuscation
-from modules.dynamic_extractor import dynamic_extract
-from modules.classifier import classify_behavior
-
-def run_node_script(script, args):
-    result = subprocess.run(['node', '-e', f"const fn = require('./modules/{script}'); console.log(JSON.stringify(fn('{args}')))"], capture_output=True, text=True)
-    return json.loads(result.stdout)
-
+from modules.static_classifier import classify_static
+from modules.dynamic_extractor import extract_dynamic
+import subprocess
 def donapi_pipeline(package_path):
-    try:
-        # Bước 1: Tái tạo mã
-        merged_code = run_node_script('reconstruct_code', package_path)
-        if not merged_code:
-            return 'Error in code reconstruction'
+       package_path = os.path.expanduser(package_path)
+       package_name = os.path.basename(package_path)
+       label = 1 if 'malware' in package_path else 0
 
-        # Bước 2: Kiểm tra shell
-        shell_results = detect_shell_commands(package_path)
-        if shell_results['malicious']:
-            return classify_behavior(shell_results['commands'])
+       # Ensure logs directory exists
+       log_dir = os.path.expanduser('~/hocmay/donapi/logs')
+       os.makedirs(log_dir, exist_ok=True)
+       results_log = os.path.join(log_dir, 'results.log')
 
-        # Bước 3: Kiểm tra che giấu
-        is_obfuscated = detect_obfuscation(merged_code)
+       # Ensure datasets directory exists
+       dataset_dir = os.path.expanduser('~/hocmay/donapi/datasets')
+       os.makedirs(dataset_dir, exist_ok=True)
+       shell_csv = os.path.join(dataset_dir, 'shell_commands.csv')
+       behavior_csv = os.path.join(dataset_dir, 'behavior.csv')
 
-        # Bước 4: Phân tích tĩnh
-        static_results = run_node_script('static_identifier', merged_code)
-        if not is_obfuscated and not static_results['suspicious']:
-            return 'Benign'
+       # Step 1: Shell Detection
+       shell_commands = detect_shell_commands(package_path)
+       if shell_commands:
+           with open(shell_csv, 'a') as f:
+               for cmd, pkg, lbl in shell_commands:
+                   f.write(f"{cmd},{pkg},{lbl}\n")
 
-        # Bước 5: Phân tích động
-        dynamic_results = dynamic_extract(package_path)
+       # Step 2: Reconstruct Code
+       try:
+           subprocess.run(['node', '-e', f"""
+           const fn = require('./modules/reconstruct_code');
+           fn('{package_path}');
+           """], check=True)
+       except subprocess.CalledProcessError:
+           pass
 
-        # Bước 6: Phân loại
-        combined_results = static_results['api_calls'] + dynamic_results
-        return classify_behavior(combined_results)
-    except Exception as e:
-        print(f"Error in pipeline: ${e}")
-        return 'Error'
+       # Step 3: Static Analysis
+       static_result = classify_static(package_path)
+       if static_result != 'Benign':
+           with open(results_log, 'a') as f:
+               f.write(f"{package_name},{static_result}\n")
+           return static_result
+
+       # Step 4: Dynamic Analysis
+       dynamic_behaviors = extract_dynamic(package_path)
+       if dynamic_behaviors:
+           with open(behavior_csv, 'a') as f:
+               for behavior, count, pkg, lbl in dynamic_behaviors:
+                   f.write(f"{behavior},{count},{pkg},{lbl}\n")
+           with open(results_log, 'a') as f:
+               f.write(f"{package_name},M3\n")
+           return 'M3'
+
+       # Default: Benign
+       with open(results_log, 'a') as f:
+           f.write(f"{package_name},Benign\n")
+       return 'Benign'
 
 if __name__ == '__main__':
-    for package in os.listdir('npm-cache/malware'):
-        result = donapi_pipeline(os.path.join('npm-cache/malware', package))
-        print(f'Package ${package}: ${result}')
-    for package in os.listdir('npm-cache/benign'):
-        result = donapi_pipeline(os.path.join('npm-cache/benign', package))
-        print(f'Package ${package}: ${result}')
+       benign_dir = '~/hocmay/donapi/npm-cache/benign/extracted'
+       malware_dir = '~/hocmay/donapi/npm-cache/malware/extracted'
+       for directory in [benign_dir, malware_dir]:
+           directory = os.path.expanduser(directory)
+           for package in os.listdir(directory):
+               package_path = os.path.join(directory, package)
+               if os.path.isdir(package_path):
+                   donapi_pipeline(package_path)

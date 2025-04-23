@@ -1,0 +1,56 @@
+{
+  "name": "cint",
+  "version": "9.1.0",
+  "description": "A library of Javascript utility functions with an emphasis on Functional Programming.",
+  "author": "Raine Revere",
+  "license": "ISC",
+  "readmeFilename": "README.md",
+  "main": "src/index.js",
+  "files": [
+    "src",
+    "!*.test.js"
+  ],
+  "type": "module",
+  "engines": {
+    "node": ">=10.12.0"
+  },
+  "scripts": {
+    "lint": "eslint --cache --cache-location node_modules/.cache/.eslintcache --report-unused-disable-directives .",
+    "nyc": "nyc",
+    "test": "cross-env NODE_ENV=test mocha src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/raineorshine/cint.git"
+  },
+  "keywords": [
+    "functional",
+    "utility"
+  ],
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "cross-env": "^7.0.3",
+    "eslint": "^7.18.0",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "mocha": "^8.2.1",
+    "nyc": "^15.1.0"
+  },
+  "dependencies": {},
+  "mocha": {
+    "check-leaks": true,
+    "throw-deprecation": true,
+    "trace-deprecation": true,
+    "trace-warnings": true,
+    "use_strict": true
+  },
+  "nyc": {
+    "reporter": [
+      "html",
+      "lcov",
+      "text-summary"
+    ]
+  }
+}

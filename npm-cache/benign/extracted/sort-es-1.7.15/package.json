@@ -1,0 +1,109 @@
+{
+  "author": "Cosimo Chellini <cosimo.chellini@gmail.com>",
+  "bugs": {
+    "url": "https://github.com/cosimochellini/sort-es/issues"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
+  "dependencies": {},
+  "description": "Blazing fast, tree-shakeable, type-safe, modern utility library to sort any type of array in less than 1 KB!",
+  "devDependencies": {
+    "@babel/eslint-parser": "^7.25.8",
+    "@commitlint/cli": "^19.6.1",
+    "@commitlint/config-conventional": "^19.6.0",
+    "@rollup/plugin-commonjs": "^23.0.4",
+    "@rollup/plugin-node-resolve": "^15.3.0",
+    "@types/chai": "^4.3.19",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^22.10.3",
+    "@typescript-eslint/eslint-plugin": "^7.13.1",
+    "@typescript-eslint/parser": "^7.13.1",
+    "chai": "^4.3.10",
+    "cosmiconfig": "^9.0.0",
+    "cross-env": "^7.0.3",
+    "date-fns": "^3.3.1",
+    "eslint": "^8.56.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-prettier": "^5.2.1",
+    "eslint-plugin-react": "^7.37.3",
+    "husky": "^8.0.3",
+    "mocha": "^10.7.3",
+    "nyc": "^15.1.0",
+    "rollup": "^2.79.1",
+    "rollup-plugin-terser": "^7.0.2",
+    "rollup-plugin-typescript2": "^0.34.1",
+    "sort-es": "^1.7.12",
+    "source-map-support": "^0.5.21",
+    "standard-version": "^9.5.0",
+    "terser": "^5.36.0",
+    "ts-loader": "^9.5.1",
+    "ts-node": "^10.9.2",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^5.6.3"
+  },
+  "files": [
+    "lib/**/*"
+  ],
+  "homepage": "https://sort-es.netlify.app",
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn lint",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "keywords": [
+    "sort",
+    "sort-es",
+    "sort functions",
+    "es",
+    "es6",
+    "module",
+    "utility",
+    "library",
+    "sorting",
+    "npm",
+    "module",
+    "node",
+    "javascript",
+    "typescript",
+    "array",
+    "list"
+  ],
+  "license": "MIT",
+  "main": "lib/index.cjs.js",
+  "module": "lib/index.esm.js",
+  "name": "sort-es",
+  "nyc": {
+    "extension": [
+      ".ts",
+      ".tsx"
+    ],
+    "exclude": [
+      "**/*.d.ts"
+    ],
+    "reporter": [
+      "html"
+    ],
+    "all": true
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cosimochellini/sort-es.git"
+  },
+  "scripts": {
+    "build": "rollup -c rollup.config.ts",
+    "test": "nyc --reporter=lcov mocha --recursive --require  ts-node/register --exit test/*.ts",
+    "test:local": "nyc mocha --recursive --require ts-node/register --exit test/*.ts",
+    "lint": "eslint src/*.ts",
+    "release": "standard-version",
+    "prepare": "husky install"
+  },
+  "sideEffects": false,
+  "types": "lib/src",
+  "version": "1.7.15"
+}

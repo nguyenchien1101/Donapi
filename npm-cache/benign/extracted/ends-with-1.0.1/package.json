@@ -1,0 +1,62 @@
+{
+  "name": "ends-with",
+  "description": "Returns `true` if the given `string` or `array` ends with `suffix` using strict equality for comparisons.",
+  "version": "1.0.1",
+  "homepage": "https://github.com/jonschlinkert/ends-with",
+  "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
+  "contributors": [
+    "Charlike Mike Reagent (https://i.am.charlike.online)",
+    "Jon Schlinkert <jon.schlinkert@sellside.com> (http://twitter.com/jonschlinkert)"
+  ],
+  "repository": "jonschlinkert/ends-with",
+  "bugs": {
+    "url": "https://github.com/jonschlinkert/ends-with/issues"
+  },
+  "license": "MIT",
+  "files": [
+    "index.js"
+  ],
+  "main": "index.js",
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "devDependencies": {
+    "benchmarked": "^1.0.0",
+    "gulp-format-md": "^0.1.12",
+    "mocha": "^3.2.0"
+  },
+  "keywords": [
+    "array",
+    "end",
+    "ends",
+    "javascript",
+    "js",
+    "string",
+    "suffix",
+    "util",
+    "utility",
+    "utils",
+    "with"
+  ],
+  "verb": {
+    "toc": false,
+    "layout": "default",
+    "tasks": [
+      "readme"
+    ],
+    "plugins": [
+      "gulp-format-md"
+    ],
+    "related": {
+      "list": [
+        "path-ends-with"
+      ]
+    },
+    "lint": {
+      "reflinks": true
+    }
+  }
+}

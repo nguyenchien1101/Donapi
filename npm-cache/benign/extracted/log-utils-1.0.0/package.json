@@ -1,0 +1,71 @@
+{
+  "name": "log-utils",
+  "description": "Tiny wrapper around ansi-colors to add colored symbols and a timestamp.",
+  "version": "1.0.0",
+  "homepage": "https://github.com/jonschlinkert/log-utils",
+  "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
+  "repository": "jonschlinkert/log-utils",
+  "bugs": {
+    "url": "https://github.com/jonschlinkert/log-utils/issues"
+  },
+  "license": "MIT",
+  "files": [
+    "index.js"
+  ],
+  "main": "index.js",
+  "engines": {
+    "node": ">=8.6"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "dependencies": {
+    "ansi-colors": "^3.2.1",
+    "time-stamp": "^2.2.0"
+  },
+  "devDependencies": {
+    "gulp-format-md": "^1.0.0",
+    "mocha": "^5.2.0"
+  },
+  "keywords": [
+    "ansi",
+    "chalk",
+    "check",
+    "checkmark",
+    "cli",
+    "color",
+    "colors",
+    "command",
+    "console",
+    "cyan",
+    "error",
+    "green",
+    "info",
+    "line",
+    "log",
+    "red",
+    "stamp",
+    "success",
+    "terminal",
+    "time",
+    "time-stamp",
+    "timestamp",
+    "util",
+    "utility",
+    "utils",
+    "warn",
+    "warning",
+    "yellow"
+  ],
+  "verb": {
+    "layout": "default",
+    "plugins": [
+      "gulp-format-md"
+    ],
+    "related": {
+      "list": [
+        "ansi-colors"
+      ]
+    }
+  }
+}
