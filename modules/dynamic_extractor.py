@@ -1,36 +1,39 @@
 import os
-import subprocess
-import json
+import re
+import base64
 
 def extract_dynamic(package_path):
-       package_path = os.path.expanduser(package_path)
-       package_name = os.path.basename(package_path)
-       merged_js = os.path.join(package_path, 'merged.js')
-       behaviors = []
-       label = 1 if 'malware' in package_path else 0
+    dangerous_patterns = [
+        'http.request', 'https.request', 'fetch', 'dns.lookup', 'net.connect',
+        'fs.writeFile', 'fs.readFile', 'child_process.exec',
+        'require("http")', 'require("https")', 'require("net")',
+        'os.homedir', 'os.hostname', 'os.userInfo', 'dns.getServers',
+        'querystring.stringify'  # Thêm để phát hiện gửi dữ liệu
+    ]
+    behaviors = []
 
-       if not os.path.exists(merged_js):
-           return []
+    # Check merged.js for dynamic behaviors
+    merged_path = os.path.join(package_path, 'merged.js')
+    if not os.path.exists(merged_path):
+        print(f"Warning: merged.js not found in {package_path}")
+        return behaviors
 
-       try:
-           # Giả lập chạy mã trong môi trường an toàn (dùng Node.js sandbox)
-           result = subprocess.run(
-               ['node', '-e', f"""
-               const vm = require('vm');
-               const fs = require('fs');
-               const code = fs.readFileSync('{merged_js}', 'utf-8');
-               const sandbox = {{}};
-               vm.createContext(sandbox);
-               vm.runInContext(code, sandbox);
-               console.log(JSON.stringify(Object.keys(sandbox)));
-               """],
-               capture_output=True, text=True, timeout=5
-           )
-           if result.stdout:
-               behaviors.append(('dynamic_execution', len(result.stdout), package_name, label))
-       except subprocess.TimeoutExpired:
-           behaviors.append(('timeout', 1, package_name, label))
-       except Exception as e:
-           behaviors.append(('error', str(e), package_name, label))
+    with open(merged_path, 'r') as f:
+        code = f.read()
 
-       return behaviors
+    code_lower = code.lower()
+    for pattern in dangerous_patterns:
+        if pattern.lower() in code_lower:
+            behaviors.append([pattern, 1, os.path.basename(package_path), 1])
+
+    # Check for base64 encoded behaviors
+    for word in code.split():
+        try:
+            decoded = base64.b64decode(word).decode('utf-8')
+            decoded_lower = decoded.lower()
+            if any(pattern.lower() in decoded_lower for pattern in dangerous_patterns):
+                behaviors.append([f"Base64 decoded: {decoded}", 1, os.path.basename(package_path), 1])
+        except:
+            pass
+
+    return behaviors

@@ -1,40 +1,44 @@
 const fs = require('fs');
-   const path = require('path');
-   const os = require('os');
+const path = require('path');
 
-   function reconstructCode(packagePath) {
-       try {
-           // Mở rộng dấu ~ thành đường dẫn home
-           const resolvedPath = packagePath.replace(/^~/, os.homedir());
-           const packageJsonPath = path.join(resolvedPath, 'package.json');
-           if (!fs.existsSync(packageJsonPath)) {
-               throw new Error(`package.json not found in ${resolvedPath}`);
-           }
-           const packageJson = JSON.parse(fs.readFileSync(packageJsonPath));
-           let mergedCode = '';
-           let main = packageJson.main || 'index.js';
+function reconstruct_code(package_path) {
+    const possible_main_files = ['app.js', 'index.js', 'main.js'];
+    let main_content = '';
 
-           // Nếu main là thư mục, thử tìm index.js trong thư mục đó
-           const mainPath = path.join(resolvedPath, main);
-           if (fs.existsSync(mainPath) && fs.lstatSync(mainPath).isDirectory()) {
-               main = path.join(main, 'index.js');
-           }
+    // Try to find the main file
+    for (const main_file of possible_main_files) {
+        const file_path = path.join(package_path, main_file);
+        if (fs.existsSync(file_path)) {
+            main_content = fs.readFileSync(file_path, 'utf-8');
+            break;
+        }
+    }
 
-           // Kiểm tra và đọc file main
-           if (fs.existsSync(path.join(resolvedPath, main))) {
-               mergedCode += fs.readFileSync(path.join(resolvedPath, main), 'utf-8') + '\n';
-           } else {
-               console.warn(`Main file ${main} not found in ${resolvedPath}`);
-           }
+    if (!main_content) {
+        console.log(`No main file (app.js, index.js, main.js) found in ${package_path}`);
+        // Create an empty merged.js to avoid errors
+        fs.writeFileSync(path.join(package_path, 'merged.js'), '');
+        return;
+    }
 
-           // Ghi merged.js
-           const outputPath = path.join(resolvedPath, 'merged.js');
-           fs.writeFileSync(outputPath, mergedCode);
-           return outputPath;
-       } catch (e) {
-           console.error(`Error in ${packagePath}: ${e}`);
-           return null;
-       }
-   }
+    // Collect all .js files
+    const js_files = fs.readdirSync(package_path)
+        .filter(file => file.endsWith('.js') && file !== 'merged.js');
+    let merged_content = main_content + '\n';
 
-   module.exports = reconstructCode;
+    // Append content of other .js files
+    for (const js_file of js_files) {
+        if (!possible_main_files.includes(js_file)) {
+            const file_path = path.join(package_path, js_file);
+            merged_content += `\n// Content of ${js_file}\n`;
+            merged_content += fs.readFileSync(file_path, 'utf-8') + '\n';
+        }
+    }
+
+    // Write to merged.js
+    const merged_file = path.join(package_path, 'merged.js');
+    fs.writeFileSync(merged_file, merged_content);
+    console.log(`Merged ${js_files.length} files into ${merged_file}`);
+}
+
+module.exports = reconstruct_code;
