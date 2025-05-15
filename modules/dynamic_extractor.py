@@ -3,37 +3,48 @@ import re
 import base64
 
 def extract_dynamic(package_path):
-    dangerous_patterns = [
-        'http.request', 'https.request', 'fetch', 'dns.lookup', 'net.connect',
-        'fs.writeFile', 'fs.readFile', 'child_process.exec',
-        'require("http")', 'require("https")', 'require("net")',
-        'os.homedir', 'os.hostname', 'os.userInfo', 'dns.getServers',
-        'querystring.stringify'  # Thêm để phát hiện gửi dữ liệu
-    ]
+    merged_path = os.path.join(package_path, 'merged.js')
+    package_name = os.path.basename(package_path)
     behaviors = []
 
-    # Check merged.js for dynamic behaviors
-    merged_path = os.path.join(package_path, 'merged.js')
     if not os.path.exists(merged_path):
         print(f"Warning: merged.js not found in {package_path}")
         return behaviors
 
-    with open(merged_path, 'r') as f:
-        code = f.read()
+    with open(merged_path, 'r', encoding='utf-8', errors='ignore') as f:
+        lines = f.readlines()
 
-    code_lower = code.lower()
-    for pattern in dangerous_patterns:
-        if pattern.lower() in code_lower:
-            behaviors.append([pattern, 1, os.path.basename(package_path), 1])
+    # Mẫu regex để dò API nguy hiểm linh hoạt hơn
+    patterns = {
+        r'https\s*\.\s*request': 'M1',
+        r'require\s*\(\s*[\'"]https[\'"]\s*\)': 'M3',
+        r'os\s*\.\s*userInfo': 'M1',
+        r'os\s*\.\s*homedir': 'M1',
+        r'fs\s*\.\s*writeFile': 'M2',
+        r'fs\s*\.\s*readFile': 'M2',
+        r'child_process\s*\.\s*exec': 'M5',
+        r'dns\s*\.\s*getServers': 'M1',
+        r'querystring\s*\.\s*stringify': 'M1',
+        r'eval\s*\(': 'M3',
+        r'Function\s*\(': 'M3'
+    }
 
-    # Check for base64 encoded behaviors
-    for word in code.split():
+    # Dò trong từng dòng
+    for idx, line in enumerate(lines, start=1):
+        for regex, label in patterns.items():
+            if re.search(regex, line):
+                behaviors.append([f'{regex} @ line {idx}', 1, package_name, label])
+
+    # Dò các chuỗi base64 nghi ngờ
+    code = ''.join(lines)
+    suspicious = re.findall(r'["\']([A-Za-z0-9+/=]{20,})["\']', code)
+    for encoded in suspicious:
         try:
-            decoded = base64.b64decode(word).decode('utf-8')
-            decoded_lower = decoded.lower()
-            if any(pattern.lower() in decoded_lower for pattern in dangerous_patterns):
-                behaviors.append([f"Base64 decoded: {decoded}", 1, os.path.basename(package_path), 1])
+            decoded = base64.b64decode(encoded).decode('utf-8')
+            for regex, label in patterns.items():
+                if re.search(regex, decoded):
+                    behaviors.append([f'Base64 decoded → {regex}', 1, package_name, label])
         except:
-            pass
+            continue
 
     return behaviors

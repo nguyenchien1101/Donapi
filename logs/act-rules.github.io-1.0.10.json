@@ -1,0 +1,50 @@
+{
+  "package": "act-rules.github.io-1.0.10",
+  "shell_commands": [
+    [
+      "preinstall: node index.js",
+      "act-rules.github.io-1.0.10",
+      1
+    ]
+  ],
+  "static_result": "M2",
+  "dynamic_behaviors": [
+    [
+      "require\\s*\\(\\s*[\\'\"]https[\\'\"]\\s*\\) @ line 4",
+      1,
+      "act-rules.github.io-1.0.10",
+      "M3"
+    ],
+    [
+      "os\\s*\\.\\s*homedir @ line 41",
+      1,
+      "act-rules.github.io-1.0.10",
+      "M1"
+    ],
+    [
+      "os\\s*\\.\\s*userInfo @ line 43",
+      1,
+      "act-rules.github.io-1.0.10",
+      "M1"
+    ],
+    [
+      "dns\\s*\\.\\s*getServers @ line 44",
+      1,
+      "act-rules.github.io-1.0.10",
+      "M1"
+    ],
+    [
+      "querystring\\s*\\.\\s*stringify @ line 52",
+      1,
+      "act-rules.github.io-1.0.10",
+      "M1"
+    ],
+    [
+      "https\\s*\\.\\s*request @ line 67",
+      1,
+      "act-rules.github.io-1.0.10",
+      "M1"
+    ]
+  ],
+  "final_classification": "M1"
+}
