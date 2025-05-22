@@ -2,7 +2,7 @@ const fs = require('fs');
 // Correctly import the function using destructuring
 const { detectObfuscation } = require('obfuscation-detector'); 
 
-const filePath = '/home/anhanh/Donapi/npm-cache/test/all-paths-1.0.2/src/obfusecate-index.js'; 
+const filePath = '/home/anhanh/Donapi/npm-cache/test/all-paths-1.0.2/src/index.js'; 
 
 try {
     if (fs.existsSync(filePath)) { 

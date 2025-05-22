@@ -4,7 +4,7 @@ import bashlex
 from urllib.parse import urlparse # For domain extraction
 import joblib # To load the model
 
-from modules.ShellCommandAnalyzer import *
+from ShellCommandAnalyzer import *
 
 
 # Helper to check URLs within a command string
