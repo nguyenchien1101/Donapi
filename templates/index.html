@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Donapi - Phân tích gói npm</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <h1>Phân tích gói npm</h1>
+  <form action="/upload" method="post" enctype="multipart/form-data">
+    <input type="file" name="files" webkitdirectory directory multiple required>
+    <br>
+    <button type="submit">Phân tích thư mục</button>
+  </form>
+</body>
+</html>
+
