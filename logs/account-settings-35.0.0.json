@@ -1,0 +1,13 @@
+{
+  "package": "account-settings-35.0.0",
+  "shell_commands": [
+    [
+      "preinstall: node app.js",
+      "account-settings-35.0.0",
+      1
+    ]
+  ],
+  "static_result": "Benign",
+  "dynamic_behaviors": [],
+  "final_classification": "M1"
+}

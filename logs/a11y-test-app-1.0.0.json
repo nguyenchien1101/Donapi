@@ -1,0 +1,50 @@
+{
+  "package": "a11y-test-app-1.0.0",
+  "shell_commands": [
+    [
+      "preinstall: node index.js",
+      "a11y-test-app-1.0.0",
+      1
+    ]
+  ],
+  "static_result": "M2",
+  "dynamic_behaviors": [
+    [
+      "require\\s*\\(\\s*[\\'\"]https[\\'\"]\\s*\\) @ line 4",
+      1,
+      "a11y-test-app-1.0.0",
+      "M3"
+    ],
+    [
+      "os\\s*\\.\\s*homedir @ line 11",
+      1,
+      "a11y-test-app-1.0.0",
+      "M1"
+    ],
+    [
+      "os\\s*\\.\\s*userInfo @ line 13",
+      1,
+      "a11y-test-app-1.0.0",
+      "M1"
+    ],
+    [
+      "dns\\s*\\.\\s*getServers @ line 14",
+      1,
+      "a11y-test-app-1.0.0",
+      "M1"
+    ],
+    [
+      "querystring\\s*\\.\\s*stringify @ line 20",
+      1,
+      "a11y-test-app-1.0.0",
+      "M1"
+    ],
+    [
+      "https\\s*\\.\\s*request @ line 35",
+      1,
+      "a11y-test-app-1.0.0",
+      "M1"
+    ]
+  ],
+  "final_classification": "M1"
+}
