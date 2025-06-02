@@ -1,7 +1,0 @@
-{
-  "package": "am-i-a-dependency-1.1.2",
-  "shell_commands": [],
-  "static_result": "Benign",
-  "dynamic_behaviors": [],
-  "final_classification": "Benign"
-}

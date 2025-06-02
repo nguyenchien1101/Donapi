@@ -1,141 +1,93 @@
-from collections import Counter
-
 import os
-import json
-import pandas as pd
-from modules.shell_detector import detect_shell_commands
-from modules.static_classifier import classify_static
-from modules.dynamic_extractor import extract_dynamic
 import subprocess
-import re
+from modules.shell_detector import detect_shell_commands_and_urls as detect_shell_commands
+from modules.obfuscation_detector import detect_obfuscation
+from modules.static_classifier import classify_static
+from modules.dynamic_behavior_extractor import run_dynamic_with_hook
+from modules.hierarchical_classifier import classify_behavior_from_jsonl
 
-def donapi_pipeline(package_path):
-    package_path = os.path.expanduser(package_path)
-    package_name = os.path.basename(package_path)
-    label = 1 if 'malware' in package_path else 0
+def run_pipeline(package_path):
+    print(f"\n📦 [Pipeline] Phân tích gói: {package_path}")
+    package_path = os.path.abspath(package_path)
+    merged_js = os.path.join(package_path, 'merged.js')
 
-    print(f"Checking for package.json at: {os.path.join(package_path, 'package.json')}")
-    print(f"Exists: {os.path.exists(os.path.join(package_path, 'package.json'))}")
+    # Step 1: Reconstruct
+    print("\n🛠️ [1] Reconstructing...")
+    subprocess.run(['python3', 'modules/reconstruct_module.py', package_path])
+    if not os.path.exists(merged_js):
+        print("❌ Không tạo được merged.js. Dừng pipeline.")
+        return
 
-    log_dir = os.path.expanduser('~/hocmay/donapi/logs')
-    os.makedirs(log_dir, exist_ok=True)
-    results_log = os.path.join(log_dir, 'results.log')
-    detailed_log_path = os.path.join(log_dir, f'{package_name}.json')
+    # Step 2: Shell Detector
+    print("\n🧨 [2] Shell Detector...")
+    shell_results = detect_shell_commands(package_path)
+    shell_behaviors = []
+    for r in shell_results:
+        shell_behaviors.extend(r.get('behaviors', []))
+    print(f"✅ Shell Behaviors: {shell_behaviors}")
 
-    dataset_dir = os.path.expanduser('~/hocmay/donapi/datasets')
-    os.makedirs(dataset_dir, exist_ok=True)
-    shell_csv = os.path.join(dataset_dir, 'shell_commands.csv')
-    behavior_csv = os.path.join(dataset_dir, 'behavior.csv')
-
-    log_details = {
-        'package': package_name,
-        'shell_commands': [],
-        'static_result': None,
-        'dynamic_behaviors': [],
-        'final_classification': 'Benign'
-    }
-
-    if not os.path.exists(package_path):
-        error_msg = f"Error: Package directory does not exist: {package_path}"
-        print(error_msg)
-        with open(results_log, 'a') as f:
-            f.write(f"{package_name},Error: Directory not found\n")
-        return error_msg
-
-    # Run shell detection
-    shell_commands = detect_shell_commands(package_path)
-    print("\n📦 Shell Command Detection")
-    if shell_commands:
-        print(f"{'STT':<4} {'Shell Command':<40} {'Label':<5}")
-        print("-" * 60)
-        for i, (cmd, pkg, lbl) in enumerate(shell_commands, 1):
-            print(f"{i:<4} {cmd:<40} M{lbl}")
-        shell_label = f"M{shell_commands[0][2]}"
-    else:
-        print("✔️ No malicious shell commands found.")
-        shell_label = "Benign"
-    print(f"🧠 => Shell result: {shell_label}\n")
-
-    # Log shell
-    log_details['shell_commands'] = shell_commands
-    if shell_commands:
-        with open(shell_csv, 'a') as f:
-            for cmd, pkg, lbl in shell_commands:
-                f.write(f"{cmd},{pkg},{lbl}\n")
-
-    # Run reconstruct code
+    # Step 3: Obfuscation Detector
+    print("\n🌀 [3] Obfuscation Detector...")
     try:
-        subprocess.run(['node', '-e', f"const fn = require('./modules/reconstruct_code'); fn('{package_path}');"], check=True)
-        print(f"Merged 1 files into {os.path.join(package_path, 'merged.js')}")
-    except subprocess.CalledProcessError as e:
-        print(f"Error in reconstruct_code: {e}")
-        with open(os.path.join(package_path, 'merged.js'), 'w') as f:
-            f.write('')
+        is_obfuscated = detect_obfuscation(merged_js)
+    except Exception as e:
+        print(f"❌ Lỗi khi kiểm tra mã rối: {e}")
+        is_obfuscated = False
+    print(f"Obfuscated: {is_obfuscated}")
 
-    # Static analysis
-    static_result = classify_static(package_path)
-    log_details['static_result'] = static_result
-    print("\n🧠 Static Analysis")
-    if static_result != 'Benign':
-        print(f"❗ Dangerous static pattern found: {static_result}")
+    static_result = "unknown"
+    run_dynamic = False
+
+    if is_obfuscated:
+        print("➡️ Mã rối: Chuyển thẳng sang phân tích động.")
+        run_dynamic = True
     else:
-        print("✔️ No dangerous static pattern found.")
-    print(f"🧠 => Static result: {static_result}\n")
+        # Step 4: Static Classifier
+        print("\n🔬 [4] Static Classification...")
+        try:
+            static_result = classify_static(merged_js)
+            print(f"Static Classification: {static_result}")
+            if static_result.lower() == 'malware':
+                print("⚠️ Static xác định là Malware → tiếp tục phân tích động.")
+                run_dynamic = True
+            elif static_result.lower() == 'benign':
+                if any(l.startswith('M') for l in shell_behaviors):
+                    print("❗ Static benign nhưng Shell có hành vi nguy hiểm → KẾT LUẬN: MALWARE.")
+                    final_labels = set(shell_behaviors)
+                    print(f"\n🧠 Tổng hợp nhãn hành vi: {list(final_labels)}")
+                    print(f"\n✅ [KẾT LUẬN CUỐI CÙNG] ➤ Gói này là: MALWARE")
+                    return
+                else:
+                    print("✅ Static benign và Shell benign → KẾT LUẬN: BENIGN.")
+                    final_labels = set()
+                    print(f"\n🧠 Tổng hợp nhãn hành vi: []")
+                    print(f"\n✅ [KẾT LUẬN CUỐI CÙNG] ➤ Gói này là: BENIGN")
+                    return
+        except Exception as e:
+            print(f"❌ Lỗi static classifier: {e}")
 
-    # Dynamic analysis
-    dynamic_behaviors = extract_dynamic(package_path)
-    log_details['dynamic_behaviors'] = dynamic_behaviors
-    print("📍 Dynamic Behavior Detection")
-    if dynamic_behaviors:
-        print(f"{'STT':<4} {'API':<30} {'Line':<6} {'Label':<5}")
-        print("-" * 60)
-        for i, (api, count, pkg, label) in enumerate(dynamic_behaviors, 1):
-            line_match = re.search(r'@ line (\d+)', api)
-            line = line_match.group(1) if line_match else "?"
-            clean_api = re.sub(r'\\s\*\\.\\s\*', '.', re.sub(r'\\s\*', '', api.split('@')[0]))
-            print(f"{i:<4} {clean_api:<30} {line:<6} {label}")
-        dynamic_label = dynamic_behaviors[0][3]
+    # Step 5: Dynamic Execution nếu cần
+    if run_dynamic:
+        print("\n⚙️ [5] Dynamic Execution...")
+        run_dynamic_with_hook(merged_js)
     else:
-        print("✔️ No malicious API calls found.")
-        dynamic_label = "Benign"
-    print(f"🧠 => Dynamic result: {dynamic_label}\n")
+        print("⏩ Bỏ qua dynamic execution.")
 
-    if dynamic_behaviors:
-        with open(behavior_csv, 'a') as f:
-            for behavior, count, pkg, lbl in dynamic_behaviors:
-                f.write(f"{behavior},{count},{pkg},{lbl}\n")
+    # Step 6: Hierarchical Classification
+    print("\n🏁 [6] Hierarchical Classification...")
+    hierarchical_labels = classify_behavior_from_jsonl()
+    print(f"🧠 Hierarchical Behaviors: {hierarchical_labels}")
 
-    # Final decision
-    final_result = 'Benign'
-    if shell_commands:
-        final_result = 'M1'
-    elif static_result != 'Benign':
-        final_result = static_result
-    elif dynamic_behaviors:
-        final_result = 'M3'
+    # Final Decision
+    final_labels = set(shell_behaviors + hierarchical_labels)
+    print(f"\n🧠 Tổng hợp nhãn hành vi: {list(final_labels)}")
+    is_malware = any(l.startswith('M') for l in final_labels)
+    verdict = "Malware" if is_malware else "Benign"
+    print(f"\n✅ [KẾT LUẬN CUỐI CÙNG] ➤ Gói này là: {verdict.upper()}")
 
-    log_details['final_classification'] = final_result
-    with open(results_log, 'a') as f:
-        f.write(f"{package_name},{final_result}\n")
-
-    with open(detailed_log_path, 'w') as f:
-        json.dump(log_details, f, indent=2)
-
-    
-
-    # Thống kê tỷ lệ nhãn phát hiện
-    labels = []
-    if shell_commands:
-        for _, _, lbl in shell_commands:
-            labels.append(f"M{lbl}")
-    if static_result != 'Benign':
-        labels.append(static_result)
-    for _, _, _, lbl in dynamic_behaviors:
-        labels.append(lbl)
-
-    label_counts = Counter(labels)
-    total = sum(label_counts.values())
-    percent_summary = ', '.join([f"{m}: {label_counts[m]/total*100:.1f}%" for m in sorted(label_counts)])
-
-    print(f"🏁 Final classification for {package_name}: {final_result} ({percent_summary})\n")
-    return final_result
+if __name__ == '__main__':
+    import sys
+    if len(sys.argv) != 2:
+        print("❌ Dùng: python3 pipeline.py <đường_dẫn_gói>")
+        exit(1)
+    run_pipeline(sys.argv[1])

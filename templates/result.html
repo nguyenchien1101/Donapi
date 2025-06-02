@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Kết quả DONAPI</title>
+    <style>
+        body { font-family: sans-serif; background-color: #f0f0f0; padding: 20px; }
+        .result-box {
+            max-width: 700px; margin: auto;
+            background-color: {{ 'red' if verdict == 'Malware' else '#28a745' }};
+            color: white; padding: 30px; border-radius: 10px;
+        }
+        pre { white-space: pre-wrap; }
+    </style>
+</head>
+<body>
+    <div class="result-box">
+        <h2>Kết luận: {{ verdict }}</h2>
+        <pre>{{ result }}</pre>
+    </div>
+</body>
+</html>

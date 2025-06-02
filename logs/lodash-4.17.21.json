@@ -1,7 +1,0 @@
-{
-  "package": "lodash-4.17.21",
-  "shell_commands": [],
-  "static_result": "Benign",
-  "dynamic_behaviors": [],
-  "final_classification": "Benign"
-}
