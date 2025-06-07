@@ -1,0 +1,6 @@
+[fs.writeFileSync] ["dynamic_log.txt","Triggered dynamic API"]
+[fs.writeFileSync] ["dynamic_log.txt","Triggered dynamic API"]
+[fs.writeFileSync] ["dynamic_log.txt","Triggered dynamic API"]
+[fs.writeFileSync] ["dynamic_log.txt","Triggered dynamic API"]
+[fs.writeFileSync] ["dynamic_log.txt","Triggered dynamic API"]
+[fs.writeFileSync] ["dynamic_log.txt","Triggered dynamic API"]

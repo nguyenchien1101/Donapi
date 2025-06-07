@@ -10,6 +10,7 @@ def run_pipeline(package_path):
     print(f"\n📦 [Pipeline] Phân tích gói: {package_path}")
     package_path = os.path.abspath(package_path)
     merged_js = os.path.join(package_path, 'merged.js')
+    dynamic_log_path = os.path.join(package_path, 'dynamic_log.jsonl')
 
     # Step 1: Reconstruct
     print("\n🛠️ [1] Reconstructing...")
@@ -56,12 +57,14 @@ def run_pipeline(package_path):
                     final_labels = set(shell_behaviors)
                     print(f"\n🧠 Tổng hợp nhãn hành vi: {list(final_labels)}")
                     print(f"\n✅ [KẾT LUẬN CUỐI CÙNG] ➤ Gói này là: MALWARE")
+                    print(f"FINAL_VERDICT:MALWARE")
                     return
                 else:
                     print("✅ Static benign và Shell benign → KẾT LUẬN: BENIGN.")
                     final_labels = set()
                     print(f"\n🧠 Tổng hợp nhãn hành vi: []")
                     print(f"\n✅ [KẾT LUẬN CUỐI CÙNG] ➤ Gói này là: BENIGN")
+                    print(f"FINAL_VERDICT:BENIGN")
                     return
         except Exception as e:
             print(f"❌ Lỗi static classifier: {e}")
@@ -75,7 +78,7 @@ def run_pipeline(package_path):
 
     # Step 6: Hierarchical Classification
     print("\n🏁 [6] Hierarchical Classification...")
-    hierarchical_labels = classify_behavior_from_jsonl()
+    hierarchical_labels = classify_behavior_from_jsonl(dynamic_log_path)
     print(f"🧠 Hierarchical Behaviors: {hierarchical_labels}")
 
     # Final Decision
@@ -84,6 +87,7 @@ def run_pipeline(package_path):
     is_malware = any(l.startswith('M') for l in final_labels)
     verdict = "Malware" if is_malware else "Benign"
     print(f"\n✅ [KẾT LUẬN CUỐI CÙNG] ➤ Gói này là: {verdict.upper()}")
+    print(f"FINAL_VERDICT:{verdict.upper()}")
 
 if __name__ == '__main__':
     import sys

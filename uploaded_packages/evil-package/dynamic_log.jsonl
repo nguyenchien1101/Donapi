@@ -1,0 +1,4 @@
+{"timestamp":1748961042890,"api":"fs.writeFileSync","args":["dynamic_log.txt","Triggered dynamic API"]}
+{"timestamp":1749008364071,"api":"fs.writeFileSync","args":["dynamic_log.txt","Triggered dynamic API"]}
+{"timestamp":1749010118368,"api":"fs.writeFileSync","args":["dynamic_log.txt","Triggered dynamic API"]}
+{"timestamp":1749314171840,"api":"fs.writeFileSync","args":["dynamic_log.txt","Triggered dynamic API"]}

