@@ -53,3 +53,12 @@ pip install -r requirements.txt
 ## 📚 Tài liệu tham khảo
 - [USENIX Security 2024 – DONAPI Paper](https://www.usenix.org/conference/usenixsecurity24/presentation/huang-cheng)
 - [DONAPI Behavior Knowledge Base](https://das-lab.github.io/Donapi/)
+"""
+This implementation is inspired by the DONAPI system described in:
+
+Cheng Huang et al., "DONAPI: Malicious NPM Packages Detector using Behavior Sequence Knowledge Mapping",
+USENIX Security Symposium 2024. https://www.usenix.org/conference/usenixsecurity24/presentation/huang-cheng
+
+Code written independently for academic research.
+"""
+
