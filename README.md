@@ -6,7 +6,6 @@ USENIX Security Symposium 2024. https://www.usenix.org/conference/usenixsecurity
 
 Code written independently for academic research.
 """
-
 # DONAPI: Malicious NPM Packages Detector using Behavior Sequence Knowledge Mapping
 
 ## 🛡️ Giới thiệu
