@@ -53,5 +53,3 @@ pip install -r requirements.txt
 ## 📚 Tài liệu tham khảo
 - [USENIX Security 2024 – DONAPI Paper](https://www.usenix.org/conference/usenixsecurity24/presentation/huang-cheng)
 - [DONAPI Behavior Knowledge Base](https://das-lab.github.io/Donapi/)
-### 📜 Giấy phép 
-Code chỉ sử dụng cho mục đích nghiên cứu và giáo dục. Không công bố mã nguồn đầy đủ do ràng buộc triển khai nội bộ. Liên hệ tác giả nếu cần dữ liệu hoặc kết quả phát hiện.
