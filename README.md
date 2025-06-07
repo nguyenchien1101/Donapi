@@ -37,3 +37,7 @@ DONAPI gồm 6 mô-đun chính:
 
 ```bash
 python3 pipeline.py /path/to/npm/package
+```
+### 🌐 Chạy bằng giao diện web (Web UI) 
+
+
