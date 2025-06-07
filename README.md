@@ -39,5 +39,19 @@ DONAPI gồm 6 mô-đun chính:
 python3 pipeline.py /path/to/npm/package
 ```
 ### 🌐 Chạy bằng giao diện web (Web UI) 
-
-
+```bash
+python3 app.py
+```
+- Truy cập: http://localhost:5000
+- Cho phép upload gói npm, xem log và nhận kết quả gán nhãn mã độc.
+### 📂 Cài đặt
+```bash
+git clone https://github.com/nguyenchien1101/Donapi.git
+cd Donapi
+pip install -r requirements.txt
+```
+## 📚 Tài liệu tham khảo
+- [USENIX Security 2024 – DONAPI Paper](https://www.usenix.org/conference/usenixsecurity24/presentation/huang-cheng)
+- [DONAPI Behavior Knowledge Base](https://das-lab.github.io/Donapi/)
+### 📜 Giấy phép 
+Code chỉ sử dụng cho mục đích nghiên cứu và giáo dục. Không công bố mã nguồn đầy đủ do ràng buộc triển khai nội bộ. Liên hệ tác giả nếu cần dữ liệu hoặc kết quả phát hiện.
