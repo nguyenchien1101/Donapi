@@ -5,7 +5,10 @@
 **DONAPI** là một hệ thống phát hiện và phân loại các gói npm độc hại bằng cách phân tích hành vi qua cả hai phương pháp **phân tích tĩnh và động**. Hệ thống sử dụng cơ sở kiến thức hành vi (behavior sequence knowledge) để gán nhãn chính xác các loại mã độc phổ biến trong chuỗi cung ứng phần mềm nguồn mở.
 
 ## ⚙️ Kiến trúc hệ thống
-[![Uploading image.png…]()](https://github.com/nguyenchien1101/Donapi/blob/main/Screenshot%202025-10-19%20095042.png)
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/nguyenchien1101/Donapi/main/Screenshot%202025-10-19%20095042.png" alt="Demo ảnh">
+</p>
 
 DONAPI gồm 6 mô-đun chính:
 
